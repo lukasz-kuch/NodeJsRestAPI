@@ -1,0 +1,12 @@
+<%- include('header.ejs') %>
+<a class="link" href="/">Go Back<a>
+  <h2><%= note.title %></h2>
+    <div>
+      <textarea rows="4" cols="50" type="text"><%= note.content %></textarea>
+    </div>
+    <br>
+    <div>
+      <input type="submit" value="Update" id="updateNote">
+      <input type="submit" value="Delete" id="deleteNote">
+    </div>
+<%- include('footer.ejs') %>

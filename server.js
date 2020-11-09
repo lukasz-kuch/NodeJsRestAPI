@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const path = require('path');
+// create express app
+const app = express();
 // Configuring the database
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
@@ -9,7 +11,8 @@ mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 }).then(() => {
   console.log("Successfully connected to the database");
 }).catch(err => {
@@ -17,8 +20,8 @@ mongoose.connect(dbConfig.url, {
   process.exit();
 });
 
-// create express app
-const app = express();
+// set the static files location /public/img will be /img for users
+app.use(express.static(path.join(__dirname, 'public')));
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -28,11 +31,14 @@ app.use(bodyParser.urlencoded({
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-// define a simple route
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public/views'));
+//app.engine('html', require('').renderFile);
+
+
+// define a simple route: load the single view file
 app.get('/', (req, res) => {
-  res.json({
-    "message": "Welcome to Notes application. Get notes quickly. Organize and keep track of all your notes."
-  });
+  res.render("index");
 });
 
 // Require Notes routes
