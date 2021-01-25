@@ -30,7 +30,8 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   Note.find(req.query.content)
     .then(notes => {
-      res.render('notes.ejs', {notes: notes});
+      res.send(notes);
+      //res.render('notes.ejs', {notes: notes});
     }).catch(err => {
       res.status(500).send({
         message: err.message || "Some error occurred while retrieving notes."
@@ -47,8 +48,8 @@ exports.findOne = (req, res) => {
           message: "Note not found with id " + req.params.noteId
         });
       }
-      //res.send(note);
-      res.render('note.ejs', {note: note})
+      res.send(note);
+      //res.render('note.ejs', {note: note})
     }).catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({

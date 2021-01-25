@@ -31,16 +31,6 @@ app.use(bodyParser.urlencoded({
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public/views'));
-//app.engine('html', require('').renderFile);
-
-
-// define a simple route: load the single view file
-app.get('/', (req, res) => {
-  res.render("index");
-});
-
 // Require Notes routes
 require('./app/routes/note.routes.js')(app);
 
