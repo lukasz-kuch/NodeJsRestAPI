@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - note-app
+      - node-app
     depends_on:
       - mongo
   mongo:
@@ -16,12 +16,12 @@ services:
     volumes:
       - mongo-data:/data/db
     ports:
-      - '27017'
+      - '27017:27017'
     networks:
-      - note-app
+      - node-app
 
 networks:
-  note-app:
+  node-app:
     driver: bridge
 
 volumes:

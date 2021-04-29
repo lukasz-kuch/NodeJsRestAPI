@@ -1,11 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
-// create express app
 const app = express();
 // Configuring the database
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({extended: true}));
+// parse requests of content-type - application/json
+app.use(express.json());
 
 mongoose.Promise = global.Promise;
 
@@ -22,14 +24,6 @@ mongoose.connect(dbConfig.url, {
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(path.join(__dirname, 'public')));
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
-
-// parse requests of content-type - application/json
-app.use(bodyParser.json())
 
 // Require Notes routes
 require('./app/routes/note.routes.js')(app);
