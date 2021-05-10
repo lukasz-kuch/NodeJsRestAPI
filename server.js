@@ -25,8 +25,8 @@ mongoose.connect(dbConfig.url, {
 // set the static files location /public/img will be /img for users
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Require Notes routes
-require('./app/routes/note.routes.js')(app);
+// Require Users routes
+require('./app/routes/user.routes.js')(app);
 
 // listen for requests
 app.listen(3000, () => {
