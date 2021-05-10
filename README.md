@@ -34,7 +34,7 @@ Remember to change localhost to mongo container name for connection definition i
 ```javascript
 module.exports = {
 
-url:  'mongodb://mongo:27017/notes'
+url:  'mongodb://mongo:27017/users'
 
 }
 ```
@@ -47,15 +47,15 @@ When using linked docker containers you should use the name of the container ins
 You can use POSTMAN or INSOMNIA to proceed with CRUD REST API
 Examples:
 
-* POST - `http://localhost:3000/notes`
+* POST - `http://localhost:3000/users`
 
 ```json
 body:
 {
- "title": "Some title",
- "content": "Some content"
+ "name": "Some name",
+ "email": "Some email"
 }
 ```
 
-* GET - `http://localhost:3000/notes`
-* DELETE - `http://localhost:3000/notes/<note_id>`
+* GET - `http://localhost:3000/users`
+* DELETE - `http://localhost:3000/users/<userId>`
