@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 // Configuring the database
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
@@ -24,7 +26,9 @@ mongoose.connect(dbConfig.url, {
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(path.join(__dirname, 'public')));
-
+// set default view engine
+app.set('views', './public/views');
+app.set('view engine', 'ejs');
 // Require Users routes
 require('./app/routes/user.routes.js')(app);
 

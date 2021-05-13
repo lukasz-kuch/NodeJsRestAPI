@@ -1,5 +1,4 @@
 const User = require('../models/user.model.js');
-
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
@@ -18,7 +17,9 @@ exports.create = (req, res) => {
   // Save User in the database
   user.save()
     .then(data => {
-      res.send(data);
+      //res.send(data)
+      console.log(data)
+      res.redirect('/');
     }).catch(err => {
       res.status(500).send({
         message: err.message || "Some error occurred while creating the User."
@@ -29,9 +30,9 @@ exports.create = (req, res) => {
 // Retrieve and return all users from the database.
 exports.findAll = (req, res) => {
   User.find(req.query.content)
-    .then(users => {
-      res.send(users);
-      //res.render('users.ejs', {users: users});
+    .then(result => {
+      //res.send(result);
+      res.render('index', {users: result});
     }).catch(err => {
       res.status(500).send({
         message: err.message || "Some error occurred while retrieving users."
@@ -42,14 +43,14 @@ exports.findAll = (req, res) => {
 // Find a single user with a userId
 exports.findOne = (req, res) => {
   User.findById(req.params.userId)
-    .then(user => {
-      if (!user) {
+    .then(result => {
+      if (!result) {
         return res.status(404).send({
           message: "User not found with id " + req.params.userId
         });
       }
-      res.send(user);
-      //res.render('user.ejs', {user: user})
+      //res.send(user);
+      res.render('user.ejs', {user: result})
     }).catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
@@ -65,7 +66,7 @@ exports.findOne = (req, res) => {
 // Update a user identified by the userId in the request
 exports.update = (req, res) => {
   // Validate Request
-  if (!req.body.content) {
+  if (!req.body.email) {
     return res.status(400).send({
       message: "User content can not be empty"
     });
@@ -73,8 +74,8 @@ exports.update = (req, res) => {
 
   // Find user and update it with the request body
   User.findByIdAndUpdate(req.params.userId, {
-      title: req.body.title || "Unassigned User",
-      content: req.body.content
+      name: req.body.name || "Unassigned User",
+      email: req.body.email
     }, {
       new: true
     })
@@ -84,7 +85,9 @@ exports.update = (req, res) => {
           message: "User not found with id " + req.params.userId
         });
       }
-      res.send(user);
+      //res.send(user);
+      console.log(user);
+      res.redirect('/');
     }).catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
@@ -106,9 +109,11 @@ exports.delete = (req, res) => {
           message: "User not found with id " + req.params.userId
         });
       }
-      res.send({
-        message: "User deleted successfully!"
-      });
+      // res.send({
+      //   message: "User deleted successfully!"
+      // });
+      console.log( "User deleted successfully!\n" + user)
+      res.redirect('/');
     }).catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({

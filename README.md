@@ -47,7 +47,7 @@ When using linked docker containers you should use the name of the container ins
 You can use POSTMAN or INSOMNIA to proceed with CRUD REST API
 Examples:
 
-* POST - `http://localhost:3000/users`
+* POST - `http://localhost:3000/`
 
 ```json
 body:

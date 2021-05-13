@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Node Express MongoDB App</title>
+    <link rel='stylesheet' href='/styles/style.css' />
+  </head>
+  <body>
+    <h1>User Details</h1>
+    <div>
+      <form action="/users/<%= user._id %>?_method=PUT" method="POST">
+        <input type="text" value="<%= user.name %>" name="name" />
+        <input type="text" value="<%= user.email %>" name="email" />
+        <button type="submit">Update</button>
+      </form>
+      <form action="/users/<%= user._id %>?_method=Delete" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  </body>
+  <script src="/scripts/global.js" />
+</html>
