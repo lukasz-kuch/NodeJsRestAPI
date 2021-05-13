@@ -19,7 +19,7 @@ exports.create = (req, res) => {
     .then(data => {
       //res.send(data)
       console.log(data)
-      res.redirect('/');
+      res.redirect('/users');
     }).catch(err => {
       res.status(500).send({
         message: err.message || "Some error occurred while creating the User."
@@ -87,7 +87,7 @@ exports.update = (req, res) => {
       }
       //res.send(user);
       console.log(user);
-      res.redirect('/');
+      res.redirect('/users');
     }).catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
@@ -113,7 +113,7 @@ exports.delete = (req, res) => {
       //   message: "User deleted successfully!"
       // });
       console.log( "User deleted successfully!\n" + user)
-      res.redirect('/');
+      res.redirect('/users');
     }).catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({
